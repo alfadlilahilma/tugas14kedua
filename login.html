@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>tugas</title>
+    <script>
+        // Fungsi untuk menghasilkan captcha acak
+        function generateCaptcha() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let captcha = '';
+            for (let i = 0; i < 6; i++) {
+                captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('captcha').innerHTML = captcha;
+        }
+
+        // Fungsi yang dijalankan saat form disubmit
+        function onSubmit() {
+            const inputUsername = document.getElementById('username').value;
+            const inputPassword = document.getElementById('password').value;
+            const inputCaptcha = document.getElementById('captcha-input').value;
+            const actualCaptcha = document.getElementById('captcha').innerHTML;
+
+            if (inputUsername === '' || inputPassword === '' || inputCaptcha === '') {
+                alert('Harap isi semua kolom');
+            } else if (inputCaptcha !== actualCaptcha) {
+                alert('Captcha salah. Coba lagi.');
+                generateCaptcha();
+            } else {
+                alert('Form berhasil disubmit:\nUsername: ' + inputUsername + '\nPassword: ' + inputPassword);
+                // Di sini Anda dapat menambahkan kode untuk mengirim data ke server atau melakukan tindakan lainnya.
+            }
+        }
+    </script>
+</head>
+<body onload="generateCaptcha();">
+    <h1>Form Contoh</h1>
+    <form>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <label for="captcha">Captcha: <span id="captcha"></span></label><br>
+        <input type="text" id="captcha-input" name="captcha"><br><br>
+        <input type="button" value="Submit" onclick="onSubmit();">
+    </form>
+</body>
+</html>
